@@ -1,0 +1,48 @@
+body {
+	font-size: 12px;
+	font-family: verdana;
+}
+section {
+	text-align: center;
+	width: 100%;
+	-webkit-transition: opacity 5s;
+	float:left;
+}
+
+.columna {
+	display: inline;
+	width: 30%;
+	margin-left: 20px;
+}
+
+.oculto {
+	opacity: 0;
+}
+
+.derecha{
+	float: right;
+	width:auto;
+}
+article {
+	background-color: #ececec;
+	margin-bottom: 20px;
+	width: 160px;
+	padding: 5px;
+}
+article > .coverphoto{
+	display: inline-block;	
+	width: 150px;
+	height: 150px;
+	background-repeat: no-repeat;
+	background-size: 150px;
+	background-position: center, center;
+}
+
+h2 {
+	font-size: 0.8rem;
+
+}
+
+br {
+	clear:both;
+}

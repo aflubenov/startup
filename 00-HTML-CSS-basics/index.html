@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; Charset=UTF-8"  /> 
+		<title>Bootcamp 01</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/estilo.css" />
+		<meta name="viewport"  content="initial-scale=1.0, user-scalable=no" />
+	</head>
+
+	<body>
+		<section class="oculto">
+			<h2>Hola mundo!</h2>
+		</section>
+		<br/>
+		<input type="text" class="alias"/>
+		<button class="aliasButton">Esto es un botón</button>
+		
+		<section class="derecha">
+			<h2>Busca Discos</h2>
+			<input type="text" class="albumSearchInput" />
+			<button class="searchButton">Search</button>
+
+			<p>Results</p>
+			<p class="listaDeDiscos"></p>
+		</section>
+
+
+	</body>
+	
+	<script>
+
+		$(".oculto").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
+			//console.log('holis');
+		 	$('.alias').focus();
+		});
+
+		$('.aliasButton').on('click',function(){
+			var sAlias = $('.alias').val();
+
+			if(!sAlias){
+				alert('Ingrese un nombre');
+				return;
+			}
+
+			$.getJSON('http://bootcamp.aws.af.cm/welcome/'+sAlias)
+			.done(function(p){
+					
+					//$('.oculto').html(p.response);
+					$('.oculto').html('<h2>'+p.response.replace(sAlias,'<mark>'+sAlias+'</mark>')+'</h2>');
+			})
+			.fail(function(p,q){
+				$('.oculto').html('ocurrió un error!');
+				$('.oculto').css('color','red');
+			})
+		})
+
+
+		var llamadaSpotify=function(pBusqueda){
+			$.getJSON('https://api.spotify.com/v1/search?q='+pBusqueda+'&type=album')
+			.done(function(p){
+				var aItems=[];
+				var oTmpAlbum=null;
+				var sTemplate = "";
+				var oSeccionDerecha=$('.listaDeDiscos');
+
+				console.log(p);
+
+				aItems = p.albums.items;
+				sTemplate=$('#templateDiscos').html();
+				oSeccionDerecha.html('');
+				for(var i=0; i<aItems.length;i++){
+					oTmpAlbum=aItems[i];
+					oSeccionDerecha.append(sTemplate
+							.replace("@titulo@",oTmpAlbum.name)
+							.replace("@imgTapa@",oTmpAlbum.images[0].url)
+							.replace("@type@",oTmpAlbum.type)
+							.replace("@release@",'no release date available')
+							.replace("@listenURL@",oTmpAlbum['external_urls'].spotify)
+							);
+				}
+
+			})
+		}
+
+		$('.searchButton').on('click',function(){
+			var sSearch=$('.albumSearchInput').val();
+
+			if(!sSearch){
+				alert('please provide a search value');
+				return;
+			}
+			llamadaSpotify(sSearch);
+			
+		});
+
+
+		$(document).ready(function(){
+			setTimeout(function() {$('.oculto').css('opacity',1);}, 0); 
+
+		});
+	</script>
+
+	<script type="text/html" id="templateDiscos">
+		<article>
+			<div class="coverphoto" style="background-image: url('@imgTapa@');"></div>
+			<h2>@titulo@</h2>
+			<p><strong>Type:</strong>@type@</p>
+			<p><strong>Release:</strong>@release@</p>
+			<p><a href="@listenURL@">Listen It</a></p>
+		</article>
+	</script>
+</html>
