@@ -6,6 +6,10 @@ exports.director=function(pName){
 		name=pName;
 	};
 
+	this.getName=function(){
+		return name;
+	}
+
 	this.addQuote=function(pQuote){
 		quotes.push(pQuote);
 	}
@@ -15,6 +19,10 @@ exports.director=function(pName){
 		for(var i=0; i<quotes.length; i++){
 			console.log(quotes[i]);
 		}
+	}
+
+	this.speakArray=function(){
+		return quotes;
 	}
 
 	if(pName){
