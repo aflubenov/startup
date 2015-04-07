@@ -14,7 +14,6 @@ alien.getAttr('director').speak();
 
 pelicula = alien;
 
-console.log(jquery('button')[0]);
 
 
 jquery('button').on('click',function(){
