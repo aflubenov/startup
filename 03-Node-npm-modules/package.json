@@ -1,0 +1,11 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "esto es un paquete",
+  "main": "index.js",
+  "scripts": {
+    "test": "testo"
+  },
+  "author": "angel",
+  "license": "ISC"
+}
