@@ -1,0 +1,57 @@
+<html ng-app='ejer05'>
+	<head>
+		<script src="/js/angular.js"></script>
+		<script src="/js/angular-route.js"></script>
+		
+		<script src="/js/models.js"></script>
+
+	</head>
+	<body ng-view>
+		
+	</body>
+
+	<script type="text/ng-template" id="index.html">
+		<a href="/#/movieEdit/">Nueva Peli</a>
+		<ul ng-repeat="movie in movies">
+			<h2>{{movie.title}}</h2>
+			<h3>{{movie.year}}</h3>
+			<p><a href="/#/movieDetail/{{movie.id}}">more...</a>  <a href="/#/movieEdit/{{movie.id}}">[edit]</a>  </p>
+
+		</ul>
+	</script>
+
+
+
+	<script type="text/ng-template" id="detail.html">
+		<img src="{{movie.photoUrl}}" />
+		<h1>{{movie.title}} ({{movie.year}})</h1>
+		<p>Director: {{movie.director}} </p>
+		<p>&nbsp;</p>
+		<p>Sinopsis:</p>
+		<p>{{movie.sinopsis}}</p>
+	</script>
+
+
+	<script type="text/ng-template" id="form.html">
+		<div>
+			<label>Title</label><input type="text" ng-model="movie.title"/>
+		</div>
+		<div>
+			<label>Year</label><input type="text" ng-model="movie.year"/>
+		</div>
+		<div>
+			<label>Director</label><input type="text" ng-model="movie.director"/>
+		<div>
+		<div>
+			<label>Sinopsis</label><input type="text" ng-model="movie.sinopsis"/>
+		<div>
+		<div>
+			<label>Photo Url</label><input type="text" ng-model="movie.photoUrl"/>
+		<div>
+		<div>
+			<button ng-click="save()">Save</button>   <button ng-click="cancelEditing()">Cancel</button>
+		</div>
+	</script>
+
+	<script src="js/start.js"></script>
+</html>
